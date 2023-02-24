@@ -9,7 +9,7 @@ Joshua Alvarez, jhsualva@bu,edu, +19173764766
 
 ### Project Idea One
 
-Idea: Polling Web Application that makes automated phone calls to a popolation, records, transcribes, and saves the responses in a data base for statistical analysis.
+Idea: Polling Web Application that makes automated phone calls to a population, records, transcribes, and saves the responses in a data base for statistical analysis.
 
 Frameworks: Django Backend, Next.js Frontend - Data Passed using the Django Rest Framework 
  
