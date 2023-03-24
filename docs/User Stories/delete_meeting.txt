@@ -1,0 +1,6 @@
+
+As a logged in user, I want to delete a saved meeting on my account in order to remove duplicate or unnecessary data to avoid confusion or free up storage space.
+Once you navigate to the Meetings button in your user portal, you can click the dropdown icon on the meeting you want to delete and select the delete button. A pop-up will appear to confirm if you would like to delete the selected meeting. Once you select "Yes," the meeting and its associated transcript, recording, and summary will be deleted from your account.
+
+If there's an error during this process, you can refresh and return to the Meetings tab in the user portal and attempt to delete the selected meeting again. If it is a reoccurring error, you can contact support via email in order for them to assist you.
+
