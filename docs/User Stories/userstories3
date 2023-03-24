@@ -1,0 +1,15 @@
+###User Story #1:
+
+#####Logged-In User Looking for Meeting Summary:
+
+As a logged-in user, if you are looking for a meeting summary, you can navigate to the Meetings button in your user portal. If you need to get a summary for a new meeting, simply click the New Meeting button and upload the audio recording of your meeting. As the meeting transcript and summary load, you can see their progress in the dashboard. Once the meeting is loaded, click on it in the table that says Meetings. All of this is under the Meeting tab in the dashboard. Once you click on a meeting, you will be able to see and export the transcript and summary.
+
+During this process, if an error is encountered, simply navigate back to the Meetings tab and re-upload the meeting. If you are still encountering issues, you may send a support request email to the support email in the footer of each page, and our team will assist you.
+
+###User Story #2:
+
+######Logged-Out User Looking to Sign Up
+
+As a logged-out user, you can sign up by navigating to the Create an Account page and clicking on the Create Account button on the homepage. Once you click the Create Account button, you can create an account by either clicking the Signup with Google button or manually filling out the required fields for an account. After the account is created, you will be redirected to the dashboard, and your sign up will be complete.
+
+If you encounter an error during this process, simply try to fill out the account sign-up form again and check to see if any errors like "Password similar to email" show up. Also, if you are signing up from an embedded web view (like from the link in someone’s Instagram bio), signing up with Google may not work, and you may have to fill out the form manually. If errors still persist, send an email to our support team from the email address located in the footer of each page.
