@@ -1,0 +1,1 @@
+<h2 class="text-slate-500 border-2 w-20 m-1">This is the home page</h2>
