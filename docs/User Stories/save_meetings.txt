@@ -1,0 +1,3 @@
+As a logged in user 
+I want to upload and store a video recording of a meeting 
+in order to keep detailed records and rewatch recordings when needed.
