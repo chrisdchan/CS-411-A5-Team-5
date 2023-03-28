@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+
+
+
+
+{% block content %}
+
+
+
+
+
+<div class="pt-20 radius-for-skewed">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full px-4 flex items-center">
+          <div class="w-full text-center">
+            <div class="max-w-md mx-auto">
+           <div class="px-20 h-full pb-5" >
+            <img class="shadow-2xl bg-gray-400 rounded-2xl border" src="https://i.imgur.com/IFvjvCL.png"/>
+           </div>
+            
+              <h2 class=" font-extrabold text-3xl lg:text-5xl font-bold font-heading">
+               {{ object.patient }}
+              </h2>
+              
+            </div>
+            <div class="max-w-sm mx-auto ">
+                
+              <p class="mb-3 text-gray-400 border-b leading-loose">{{ object.description }}</p>              
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+            <h2 class=" font-extrabold text-xl px-5 pb-5 font-bold font-heading">
+              Exercises
+             </h2>
+
+            {% for exercise in object.trainings.all %}
+            <section class=" mx-5 sm:mx-20 animate__animated animate__backInUp rounded-2xl border shadow mb-5">
+
+                {% if exercise.video %}
+            <div style="padding:56.25% 0 0 0;position:relative;"><iframe class="rounded-2xl border" src="{{ exercise.video }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Program Overview"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
+            {% endif %}
+
+            <div  id="{{exercise.title|cut:' '}}" data-accordion="collapse" data-active-classes="bg-white text-gray-900" >
+
+                <h2 id="{{exercise.title|cut:' '}}-heading-{{exercise.id}}">
+                  <button type="button" class="flex px-5 justify-between items-center py-5 w-full font-extrabold text-left text-gray-500" data-accordion-target="#{{exercise.title|cut:' '}}-body-{{exercise.id}}" aria-expanded="false" aria-controls="{{exercise.title|cut:' '}}-body-{{exercise.id}}">
+                    <span>{{exercise.title}}</span>
+                    <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  </button>
+                </h2>
+                <div id="{{exercise.title|cut:' '}}-body-{{exercise.id}}" class="hidden mx-5" aria-labelledby="{{exercise.title|cut:' '}}-heading-{{exercise.id}}">
+                  <div class="border-t py-5">
+                    <p class="mb-2 text-gray-500 dark:text-gray-400">{{exercise.description}}</p>
+                    <h4 class="py-5 w-full font-extrabold text-left text-gray-500">Link:</h4>
+
+                
+                  </div>
+                </div>
+              </div>
+            </section>
+            {% endfor %}
+
+
+            <h2 class=" font-extrabold text-xl px-5 pb-5 font-bold font-heading">
+              Resources
+             </h2>
+
+            {% for exercise in object.resources.all %}
+            <section class=" mx-5 sm:mx-20 animate__animated animate__backInUp rounded-2xl border shadow mb-5">
+
+
+            <div  id="{{exercise.title|cut:' '}}" data-accordion="collapse" data-active-classes="bg-white text-gray-900" >
+
+                <h2 id="{{exercise.title|cut:' '}}-heading-{{exercise.id}}">
+                  <button type="button" class="flex px-5 justify-between items-center py-5 w-full font-extrabold text-left text-gray-500" data-accordion-target="#{{exercise.title|cut:' '}}-body-{{exercise.id}}" aria-expanded="false" aria-controls="{{exercise.title|cut:' '}}-body-{{exercise.id}}">
+                    <span>{{exercise.title}}</span>
+                    <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  </button>
+                </h2>
+                <div id="{{exercise.title|cut:' '}}-body-{{exercise.id}}" class="hidden mx-5" aria-labelledby="{{exercise.title|cut:' '}}-heading-{{exercise.id}}">
+                  <div class="border-t py-5">
+                    <a href="{{ exercise.link }}" class="mb-2 text-gray-500 dark:text-gray-400">Click Here to View Resource</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            {% endfor %}
+
+
+
+            
+  
+
+
+
+
+
+
+
+{% endblock %}
