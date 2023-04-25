@@ -25,3 +25,24 @@ APIs: Twilio API, Assembly AI API
 Idea: An app that allows restaurants to send a bill electronically to a table and then allow the table to split the check based on the items everyone ate.
 
 APIs: Stripe API, Google Maps API
+
+### API Documentation
+
+```
+{
+user: test@email.com,
+id: 2,
+data: {
+   [
+   meeting: 1,
+   transription: "Test, test, test",
+   summary: "A person saying test",
+   ],
+   [
+   meeting: 2,
+   transription: "Test2, test2, test2",
+   summary: "A person saying test2",
+   ],
+ }
+}
+````
