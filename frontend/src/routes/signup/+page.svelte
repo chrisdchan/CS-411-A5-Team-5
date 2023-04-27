@@ -13,20 +13,53 @@
 <div
 	class="flex flex-col
     items-center
-    bg-slate-200
     gap-2
 "
 >
-	<label class="">
-		Email:
-		<input type="text" bind:value={email} class="border rounded-sm" />
+	<label
+		class="
+            w-3/6
+            flex flex-row
+            justify-center
+    "
+	>
+		<span
+			class="
+            w-32
+            text-right
+            mr-5
+        "
+			>Email:
+		</span>
+		<input
+			type="text"
+			bind:value={email}
+			class="
+                border rounded-sm
+                px-1
+            "
+		/>
 	</label>
-	<label>
-		Password:
+	<label
+		class="
+            w-3/6 bg-slate-100
+            flex flex-row
+            justify-center
+    "
+	>
+		<span
+			class="
+            w-32
+            text-right
+            mr-5
+            "
+			>Password:
+		</span>
 		<input
 			type="password"
 			bind:value={password}
 			class="
+            border rounded-sm
             px-1
         "
 		/>
