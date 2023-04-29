@@ -16,6 +16,12 @@ class TrainingSerializer(serializers.HyperlinkedModelSerializer):
         model = Training
         fields = "__all__"
 
+class AudioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Audio
+        fields = "__all__"
+
+
 class ResourceSerializer(serializers.HyperlinkedModelSerializer):
     patient = serializers.SerializerMethodField
     class Meta:
@@ -35,14 +41,14 @@ class PatientSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class NestedSerializer(serializers.ModelSerializer):
-    patients = serializers.SerializerMethodField()
+    meetings = serializers.SerializerMethodField()
 
     class Meta:
-        fields = ('email', 'first_name', 'id', 'patients')
+        fields = ('email', 'first_name', 'id', 'meetings')
         model = NewUser
 
-    def get_patients(self, obj):
-        patient_query = Patient.objects.filter(supervisor = obj.id)
-        serializer = PatientSerializer(patient_query, many=True)
+    def get_meetings(self, obj):
+        audio_query = Audio.objects.filter(supervisor = obj.id)
+        serializer = AudioSerializer(audio_query, many=True)
 
         return serializer.data

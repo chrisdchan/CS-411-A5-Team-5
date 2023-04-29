@@ -15,6 +15,7 @@ from HeartApp.settings import BASE_DIR
 from .assembly import *
 
 
+
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, user_name, first_name, password, **other_fields):
@@ -118,9 +119,10 @@ class Course(models.Model):
 
 class Audio(models.Model):
     supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     audio = models.FileField(upload_to= 'data/audio', name="audio", null=True)
     audioid = models.CharField(max_length=100, null=True)
+    transcription = models.TextField(null=True)
+    summary = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     
 

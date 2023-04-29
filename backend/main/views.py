@@ -18,6 +18,8 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework.viewsets import ModelViewSet
 from .serializers import *
+import os
+import openai
 
 def index(request):
     context = {}
@@ -42,8 +44,51 @@ def dashboard(request):
     for audio in audiologs:
         endpoint = "https://api.assemblyai.com/v2/transcript/" + str(audio.audioid)
         response = requests.get(endpoint, headers=headers)
-        if response.json()['status'] == 'completed':
+        if response.json()['status'] == 'completed' and not audio.transcription:
             context['audiologs'] += [[audio, 1]]
+            headers = {
+            "authorization": "",
+            }
+            endpoint = "https://api.assemblyai.com/v2/transcript/" + str(audio.audioid)
+            response = requests.get(endpoint, headers=headers)
+            audio.transcription = response.json()['text']
+            audio.save()
+
+            api_key = ''
+
+            endpoint = "https://api.openai.com/v1/completions"
+            prompt = f"Summarize the following audio transcription: \n {audio.transcription}"
+
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {api_key}"
+            }
+
+            data = {
+                "model": "text-davinci-003",
+                "prompt": prompt,
+                "max_tokens": 50,
+                "n": 1,
+                "stop": None,
+                "temperature": 0.5
+            }
+
+            response = requests.post(endpoint, headers=headers, json=data)
+            response_json = response.json()
+
+            if response.status_code == 200:
+                generated_text = response_json["choices"][0]["text"].strip()
+                audio.summary = generated_text
+                audio.save()
+            else:
+                print(f"Error: {response_json['error']['message']}")
+
+
+
+        elif response.json()['status'] == 'completed' and audio.transcription:
+            context['audiologs'] += [[audio, 1]]
+            
+
         else:
             context['audiologs'] += [[audio, 0]]
 
@@ -144,16 +189,6 @@ class AudioDetail(DetailView):
     model = Audio
     template_name = 'audiodetail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        headers = {
-        "authorization": "",
-        }
-        endpoint = "https://api.assemblyai.com/v2/transcript/" + str(context['object'].audioid)
-        response = requests.get(endpoint, headers=headers)
-        context['transcript'] = response.json()['text']
-
-        return context
 
 
 class PatientViewSet(ModelViewSet):
