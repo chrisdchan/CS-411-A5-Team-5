@@ -5,10 +5,8 @@ from . import views
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
 router = routers.DefaultRouter()
-router.register(r'patients', views.PatientViewSet)
 router.register(r'users', views.UserViewSet)
-router.register(r'trainings', views.TrainingViewSet)
-router.register(r'resources', views.ResourcesViewSet)
+
 router.register(r'nested', views.NestedViewSet)
 
 
@@ -19,12 +17,7 @@ urlpatterns = [
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', views.RegisterPage.as_view(), name='register'),
-    path('patientcreate/', views.PatientCreate.as_view(), name='patientcreate'),
-    path('exercisecreate/', views.ExerciseCreate.as_view(), name='exercisecreate'),
-    path('resourcecreate/', views.ResourceCreate.as_view(), name='resourcecreate'),
     path('audiocreate/', views.AudioCreate.as_view(), name='audiocreate'),
-    path('coursecreate/', views.CourseCreate.as_view(), name='coursecreate'),
-    path('course/<pk>/', views.CourseDetail.as_view(), name='coursedetail'),
     path('audio/<pk>/', views.AudioDetail.as_view(), name='audiodetail'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),

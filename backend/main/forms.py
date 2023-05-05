@@ -18,46 +18,7 @@ class Registration(UserCreationForm):
     fields = ['email', 'first_name', 'password1', 'password2']
 
 
-class Patientform(forms.ModelForm):
 
-    name = forms.CharField()
-    email = forms.EmailField(max_length=60, label='Email')
-    phone = forms.CharField()
-    
-    class Meta:
-        model = Patient
-        fields = ('name', 'email', 'phone')
-
-class Exerciseform(forms.ModelForm):
-
-    title = forms.CharField()
-    description = forms.CharField(widget=forms.Textarea(attrs={'class':'h-20'}))
-    video = forms.CharField()
-    
-    class Meta:
-        model = Training
-        fields = ('title', 'description', 'video')
-
-class Courseform(forms.ModelForm):
-
-    patient = forms.ModelChoiceField(queryset=Patient.objects.all())
-    trainings = forms.ModelMultipleChoiceField(queryset=Training.objects.all(), widget=forms.CheckboxSelectMultiple)
-    resources = forms.ModelMultipleChoiceField(queryset=Resource.objects.all(), widget=forms.CheckboxSelectMultiple)
-    description = forms.CharField(widget=forms.Textarea(attrs={'class':'h-20'}))
-    
-    class Meta:
-        model = Course
-        fields = ('patient', 'trainings', 'resources', 'description')
-
-class Resourceform(forms.ModelForm):
-
-    title = forms.CharField()
-    link = forms.CharField()
-    
-    
-    class Meta:
-        model = Resource
-        fields = ('title', 'link')
 
 
 class Audioform(forms.ModelForm):
