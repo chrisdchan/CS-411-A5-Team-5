@@ -20,41 +20,51 @@ from rest_framework.viewsets import ModelViewSet
 from .serializers import *
 import os
 import openai
+import dotenv
+from dotenv import load_dotenv
+load_dotenv()
+
+ASSEMBLY_KEY = os.getenv("ASSEMBLY_API_KEY")
+OPENAI_KEY = os.getenv("OPENAI_API_KEY")
+
 
 def index(request):
     context = {}
 
     if request.user.is_authenticated:
         return redirect('dashboard')
-    
+
     return render(request, 'index.html', context)
+
 
 @login_required
 def dashboard(request):
     context = {}
-    context['patients'] = Patient.objects.filter(supervisor = request.user)
+    context['patients'] = Patient.objects.filter(supervisor=request.user)
     context['exercises'] = Training.objects.all()
     context['resources'] = Resource.objects.all()
     context['audiologs'] = []
     headers = {
-        "authorization": "",
+        "authorization": f"{ASSEMBLY_KEY}",
     }
-    audiologs = Audio.objects.filter(supervisor = request.user)
+    audiologs = Audio.objects.filter(supervisor=request.user)
 
     for audio in audiologs:
-        endpoint = "https://api.assemblyai.com/v2/transcript/" + str(audio.audioid)
+        endpoint = "https://api.assemblyai.com/v2/transcript/" + \
+            str(audio.audioid)
         response = requests.get(endpoint, headers=headers)
         if response.json()['status'] == 'completed' and not audio.transcription:
             context['audiologs'] += [[audio, 1]]
             headers = {
-            "authorization": "",
+                "authorization": f"{ASSEMBLY_KEY}",
             }
-            endpoint = "https://api.assemblyai.com/v2/transcript/" + str(audio.audioid)
+            endpoint = "https://api.assemblyai.com/v2/transcript/" + \
+                str(audio.audioid)
             response = requests.get(endpoint, headers=headers)
             audio.transcription = response.json()['text']
             audio.save()
 
-            api_key = ''
+            api_key = OPENAI_KEY
 
             endpoint = "https://api.openai.com/v1/completions"
             prompt = f"Summarize the following audio transcription: \n {audio.transcription}"
@@ -83,11 +93,8 @@ def dashboard(request):
             else:
                 print(f"Error: {response_json['error']['message']}")
 
-
-
         elif response.json()['status'] == 'completed' and audio.transcription:
             context['audiologs'] += [[audio, 1]]
-            
 
         else:
             context['audiologs'] += [[audio, 0]]
@@ -97,6 +104,7 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
+
 class CustomLoginView(LoginView):
     template_name = 'login.html'
     fields = '__all__'
@@ -104,6 +112,7 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard')
+
 
 class RegisterPage(FormView):
     redirect_authenticated_user = True
@@ -119,6 +128,7 @@ class RegisterPage(FormView):
     def get_success_url(self):
         return reverse_lazy('dashboard')
 
+
 class PatientCreate(LoginRequiredMixin, CreateView):
     form_class = Patientform
     template_name = 'patientcreate.html'
@@ -129,6 +139,7 @@ class PatientCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard')
+
 
 class ExerciseCreate(LoginRequiredMixin, CreateView):
     form_class = Exerciseform
@@ -150,6 +161,7 @@ class ResourceCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard')
+
 
 class CourseCreate(LoginRequiredMixin, CreateView):
     form_class = Courseform
@@ -190,22 +202,25 @@ class AudioDetail(DetailView):
     template_name = 'audiodetail.html'
 
 
-
 class PatientViewSet(ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+
 
 class UserViewSet(ModelViewSet):
     queryset = NewUser.objects.all()
     serializer_class = UserSerializer
 
+
 class TrainingViewSet(ModelViewSet):
     queryset = Training.objects.all()
     serializer_class = TrainingSerializer
-    
+
+
 class ResourcesViewSet(ModelViewSet):
     queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
+
 
 class NestedViewSet(ModelViewSet):
     queryset = NewUser.objects.all()
