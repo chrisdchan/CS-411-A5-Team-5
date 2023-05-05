@@ -15,7 +15,9 @@ from .serializers import *
 import os
 import openai
 from dotenv import load_dotenv
+from django.views.generic.edit import DeleteView
 load_dotenv()
+
 
 ASSEMBLY_KEY = os.getenv("ASSEMBLY_API_KEY")
 OPENAI_KEY = os.getenv("OPENAI_API_KEY")
@@ -130,6 +132,10 @@ class AudioCreate(LoginRequiredMixin, CreateView):
 class AudioDetail(DetailView):
     model = Audio
     template_name = 'audiodetail.html'
+
+class AudioDelete(DeleteView):
+    model = Audio
+    success_url = reverse_lazy('dashboard')
 
 
 

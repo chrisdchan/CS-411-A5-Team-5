@@ -67,6 +67,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
 class Audio(models.Model):
     supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=100, null=True)
     audio = models.FileField(upload_to= 'data/audio', name="audio", null=True)
     audioid = models.CharField(max_length=100, null=True)
     transcription = models.TextField(null=True)
