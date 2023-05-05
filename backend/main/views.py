@@ -39,70 +39,83 @@ def index(request):
 @login_required
 def dashboard(request):
     context = {}
-    context['patients'] = Patient.objects.filter(supervisor=request.user)
-    context['exercises'] = Training.objects.all()
-    context['resources'] = Resource.objects.all()
     context['audiologs'] = []
-    headers = {
-        "authorization": f"{ASSEMBLY_KEY}",
-    }
-    audiologs = Audio.objects.filter(supervisor=request.user)
-
-    for audio in audiologs:
-        endpoint = "https://api.assemblyai.com/v2/transcript/" + \
-            str(audio.audioid)
-        response = requests.get(endpoint, headers=headers)
-
-        if response.status_code < 200 or response.status_code >= 230:
-            continue
-
-        if response.json()['status'] == 'completed' and not audio.transcription:
-            context['audiologs'] += [[audio, 1]]
-            headers = {
-                "authorization": f"{ASSEMBLY_KEY}",
-            }
-            endpoint = "https://api.assemblyai.com/v2/transcript/" + \
-                str(audio.audioid)
-            response = requests.get(endpoint, headers=headers)
-            audio.transcription = response.json()['text']
-            audio.save()
-
-            endpoint = "https://api.openai.com/v1/completions"
-            prompt = f"Summarize the following audio transcription: \n {audio.transcription}"
-
-            headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {OPENAI_KEY}"
-            }
-
-            data = {
-                "model": "text-davinci-003",
-                "prompt": prompt,
-                "max_tokens": 50,
-                "n": 1,
-                "stop": None,
-                "temperature": 0.5
-            }
-
-            response = requests.post(endpoint, headers=headers, json=data)
-
-            if response.status_code == 200:
-                generated_text = response_json["choices"][0]["text"].strip()
-                audio.summary = generated_text
-                audio.save()
-            else:
-                print(f"Error: {response_json['error']['message']}")
-
-        elif response.json()['status'] == 'completed' and audio.transcription:
-            context['audiologs'] += [[audio, 1]]
-
-        else:
-            context['audiologs'] += [[audio, 0]]
-
-    context['patients'] = context['patients'][::-1]
-    context['audiologs'] = context['audiologs'][::-1]
-
+    n = 25
+    user = request.user
+    print(user)
+    audios = Audio.objects.filter(supervisor=user).order_by('-audioid')[:n]
+    context = {'audios': audios}
     return render(request, 'dashboard.html', context)
+
+
+# @login_required
+# def dashboard(request):
+#     context = {}
+#     context['patients'] = Patient.objects.filter(supervisor=request.user)
+#     context['exercises'] = Training.objects.all()
+#     context['resources'] = Resource.objects.all()
+#     context['audiologs'] = []
+#     headers = {
+#         "authorization": f"{ASSEMBLY_KEY}",
+#     }
+#     audiologs = Audio.objects.filter(supervisor=request.user)
+
+#     for audio in audiologs:
+#         endpoint = "https://api.assemblyai.com/v2/transcript/" + \
+#             str(audio.audioid)
+#         response = requests.get(endpoint, headers=headers)
+
+#         if response.status_code < 200 or response.status_code >= 230:
+#             print("Assemnly AI failed")
+#             continue
+
+#         if response.json()['status'] == 'completed' and not audio.transcription:
+#             context['audiologs'] += [[audio, 1]]
+#             headers = {
+#                 "authorization": f"{ASSEMBLY_KEY}",
+#             }
+#             endpoint = "https://api.assemblyai.com/v2/transcript/" + \
+#                 str(audio.audioid)
+#             response = requests.get(endpoint, headers=headers)
+#             audio.transcription = response.json()['text']
+#             audio.save()
+
+#             endpoint = "https://api.openai.com/v1/completions"
+#             prompt = f"Summarize the following audio transcription: \n {audio.transcription}"
+
+#             headers = {
+#                 "Content-Type": "application/json",
+#                 "Authorization": f"Bearer {OPENAI_KEY}"
+#             }
+
+#             data = {
+#                 "model": "text-davinci-003",
+#                 "prompt": prompt,
+#                 "max_tokens": 50,
+#                 "n": 1,
+#                 "stop": None,
+#                 "temperature": 0.5
+#             }
+
+#             response = requests.post(endpoint, headers=headers, json=data)
+
+#             if response.status_code == 200:
+#                 generated_text = response_json["choices"][0]["text"].strip()
+#                 audio.summary = generated_text
+#                 audio.save()
+#             else:
+#                 print(f"Error: {response_json['error']['message']}")
+
+#         elif response.json()['status'] == 'completed' and audio.transcription:
+#             context['audiologs'] += [[audio, 1]]
+
+#         else:
+#             context['audiologs'] += [[audio, 0]]
+
+#     context['patients'] = context['patients'][::-1]
+#     context['audiologs'] = context['audiologs'][::-1]
+
+#     return render(request, 'dashboard.html', context)
 
 
 class CustomLoginView(LoginView):
