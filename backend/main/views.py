@@ -18,6 +18,7 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework.viewsets import ModelViewSet
 from .serializers import *
+from django.db.models import Q
 import os
 import openai
 import dotenv
@@ -37,17 +38,16 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-@login_required
-def dashboard(request):
+def getContext(request, search):
     context = {}
-    context['patients'] = Patient.objects.filter(supervisor=request.user)
-    context['exercises'] = Training.objects.all()
-    context['resources'] = Resource.objects.all()
     context['audiologs'] = []
     headers = {
         "authorization": f"{ASSEMBLY_KEY}",
     }
     audiologs = Audio.objects.filter(supervisor=request.user)
+    if search != None:
+        audiologs = audiologs.filter(
+            Q(transcription__icontains=search) | Q(summary__icontains=search))
 
     for audio in audiologs:
         endpoint = "https://api.assemblyai.com/v2/transcript/" + \
@@ -99,8 +99,24 @@ def dashboard(request):
         else:
             context['audiologs'] += [[audio, 0]]
 
-    context['patients'] = context['patients'][::-1]
     context['audiologs'] = context['audiologs'][::-1]
+    context['searchTerm'] = search
+    print(context)
+    return context
+
+
+@login_required
+def dashboard(request):
+    context = getContext(request, None)
+    return render(request, 'dashboard.html', context)
+
+
+def filter(request):
+    search = request.POST.get("search")
+    print(f"Searching for term {search}")
+    if search == "":
+        search = None
+    context = getContext(request, search)
 
     return render(request, 'dashboard.html', context)
 

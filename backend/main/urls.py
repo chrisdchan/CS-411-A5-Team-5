@@ -25,15 +25,21 @@ urlpatterns = [
     path('audiocreate/', views.AudioCreate.as_view(), name='audiocreate'),
     path('coursecreate/', views.CourseCreate.as_view(), name='coursecreate'),
     path('course/<pk>/', views.CourseDetail.as_view(), name='coursedetail'),
+    path('filter/', views.filter, name='filter'),
     path('audio/<pk>/', views.AudioDetail.as_view(), name='audiodetail'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
-    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+    path('reset_password/', auth_views.PasswordResetView.as_view(),
+         name="reset_password"),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(),
+         name="password_reset_done"),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),
+         name="password_reset_confirm"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(),
+         name="password_reset_complete"),
 
 ]
 
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
