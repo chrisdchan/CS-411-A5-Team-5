@@ -26,6 +26,10 @@
         </div>
       </div>
 
+      <div>
+        <input type="text" placeholder="Search Meetings">
+      </div>
+
       <div class="block w-full overflow-x-auto">
         <table class="items-center bg-transparent w-full border-collapse ">
           <thead>
@@ -62,6 +66,9 @@
                 {% else %}
                 <span class="text-gray-500">Analyzing</span>
                 {% endif %}
+              </td>
+              <td>
+                <a>Delete</a>
               </td>
             </tr>
             {% endfor %}
