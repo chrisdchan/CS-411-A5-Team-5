@@ -1,69 +1,48 @@
 <script lang="ts">
-	let email = '';
-	let password = '';
-
-	const handleSubmit = async (e) => {
-		console.log('====================================');
-		console.log('Submit');
-		console.log('====================================');
-	};
 </script>
 
-<div
-	class="
-        h-screen
-        flex justify-center items-center
-		gap-4
-        flex-col
-        border-2
-"
->
-	<label>
-		<span
-			class="
-            w-32
-            text-right
-            mr-5
-			"
+<body class="flex flex-col items-center justify-center mx-5 h-full bg-gray-200 text-gray-700">
+	<!-- Component Start -->
+	<div class="px-5 w-screen pt-20">
+		<form
+			class=" flex-col bg-white border rounded-2xl px-5 shadow-xl my-10 lg:mx-96 py-5"
+			method="POST"
 		>
-			Email:
-		</span>
-		<input
-			type="text"
-			bind:value={email}
-			class="
-            px-1
-			border-2 rounded-sm
-			"
-		/>
-	</label>
-	<label>
-		<span
-			class="
-            w-32
-            text-right
-            mr-5
-			"
-		>
-			Password:
-		</span>
-		<input
-			type="password"
-			bind:value={password}
-			class="
-			border-2 rounded-sm
-			px-1
-			"
-		/>
-	</label>
-	<button
-		on:click={handleSubmit}
-		class="
-			h-12 w-40
-			bg-sky-300/100
-			border-white border-solid rounded-lg
-			hover:bg-sky-400/100
-			m-6
-		">Log in</button
-	>
-</div>
+			<h1 class="text-center text-base font-extrabold mt-5">Welcome back!</h1>
+			<p class="text-center text-xs text-gray-500 mb-2">
+				Don't have an account? <a class="underline" href="/signup">Create Account</a>
+			</p>
+			<div>
+				<div class="flex flex-col">
+					<div class="flex justify-center">
+						<label>Email Address<input type="text" /></label>
+					</div>
+					<div class="flex justify-center">
+						<label>Password<input type="password" /></label>
+					</div>
+				</div>
+
+				<button
+					id="registerclicker"
+					class="flex items-center justify-center mx-auto h-12 w-full px-5 sm:w-64 bg-red-500 mt-8 rounded font-semibold text-sm text-white hover:bg-red-700 hover:animate-pulse"
+					type="submit">Login</button
+				>
+				<svg
+					id="registerloader"
+					class="text-red-500 h-10 w-10 animate-bounce mx-auto hidden"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</div>
+			<div class="flex mt-6 justify-center text-xs" />
+		</form>
+		<!-- Component End  -->
+	</div>
+</body>

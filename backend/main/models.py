@@ -1,3 +1,9 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
+from .assembly import *
+from HeartApp.settings import BASE_DIR
+from django.db.models.signals import post_save
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.template.loader import render_to_string
 import email
 from django.db import models
 from django.conf import settings
@@ -7,13 +13,6 @@ import socket
 from twilio.rest import Client
 from matplotlib.pyplot import title
 socket.gethostbyname("")
-from django.template.loader import render_to_string
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.db.models.signals import post_save
-from django.core.validators import MaxValueValidator, MinValueValidator 
-from HeartApp.settings import BASE_DIR
-from .assembly import *
-
 
 
 class CustomAccountManager(BaseUserManager):
@@ -63,14 +62,15 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name', 'first_name',]
+    REQUIRED_FIELDS = ['user_name', 'first_name', ]
 
     def __str__(self):
         return self.email
 
 
 class Patient(models.Model):
-    supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    supervisor = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=20)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
@@ -88,6 +88,7 @@ class Training(models.Model):
     def __str__(self):
         return self.title
 
+
 class Resource(models.Model):
     title = models.CharField(max_length=100, null=True)
     link = models.CharField(max_length=100)
@@ -97,7 +98,8 @@ class Resource(models.Model):
 
 
 class Course(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
+    patient = models.ForeignKey(
+        Patient, on_delete=models.CASCADE, null=True, blank=True)
     trainings = models.ManyToManyField(Training)
     resources = models.ManyToManyField(Resource)
     description = models.TextField()
@@ -107,24 +109,25 @@ class Course(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        
-        account_sid = '' 
-        auth_token = '' 
-        client = Client(account_sid, auth_token) 
- 
-        message = client.messages.create(messaging_service_sid='', body='http://localhost:8000/course/' +str(self.id)+'/', to='+1' + str(self.patient.phone))
+
+        account_sid = ''
+        auth_token = ''
+        client = Client(account_sid, auth_token)
+
+        message = client.messages.create(
+            messaging_service_sid='', body='http://localhost:8000/course/' + str(self.id)+'/', to='+1' + str(self.patient.phone))
 
         super().save(*args, **kwargs)
 
 
 class Audio(models.Model):
-    supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-    audio = models.FileField(upload_to= 'data/audio', name="audio", null=True)
+    supervisor = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    audio = models.FileField(upload_to='data/audio', name="audio", null=True)
     audioid = models.CharField(max_length=100, null=True)
     transcription = models.TextField(null=True)
     summary = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True)
-    
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -132,5 +135,3 @@ class Audio(models.Model):
         respose = handle(audiofile)
         self.audioid = respose['id']
         super().save(*args, **kwargs)
-
-

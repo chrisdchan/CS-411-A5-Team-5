@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://i.imgur.com/engdsFOh.jpg"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/engdsFOh.jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
   <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.2/src/index.min.js"></script>
-  
-  
-  
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
-    <title>{% block title %} HeartShield
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <title>{% block title %} Sumitup
     {% endblock %}</title>
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <link rel="canonical" href="/">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="article:modified_time" content="2021-03-31T01:32:06+00:00">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="website">
+  <meta property="article:modified_time" content="2021-03-31T01:32:06+00:00">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
-
-
-
-
-
-<style>
+  <style>
     header {
       font-family: 'Poppins', sans-serif;
     }
@@ -77,7 +72,7 @@
     }
   </style>
 
-    
+
 
 </head>
 <!--
@@ -97,112 +92,121 @@
 -->
 
 <div class="relative w-full">
-    <header>
-        <nav class="fixed z-10 w-full bg-white bg-opacity-70 backdrop-blur sm:md:backdrop-filter-none navbar peer-checked:navbar-active md:absolute md:bg-transparent">
-            <div class="m-auto md:px-20">
-                <div class="flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
-                    <div class="w-full px-5 flex justify-between lg:w-max md:px-0">
-                        <a href="{% url 'index'%}" aria-label="logo" class="flex items-center">
-                            <div>
-                            <p class="text-4xl font-bold text-red-500">sumitup.</p>
-                        </div>
-                        </a>
-                        <label id="nice" for="hbr" class="peer-checked:hamburger block relative z-20 p-6 -mr-6 cursor-pointer lg:hidden">
-                            <div aria-hidden="true" class="m-auto h-0.5 w-6 rounded bg-red-500 transition duration-300"></div>
-                            <div aria-hidden="true" class="m-auto mt-2 h-0.5 w-6 rounded bg-red-500 transition duration-300"></div>
-                        </label>
-                    </div>
-                    <div id="menu" class="navmenu backdrop-filter-none hidden w-full flex-wrap justify-end items-center mb-16 mx-6 space-y-20 p-6 rounded-xl shadow-lg bg-white lg:space-y-0 lg:p-0 lg:m-0 lg:flex md:flex-nowrap lg:bg-transparent lg:w-7/12 lg:shadow-none">
-                        <div class="text-gray-600 lg:pr-4">
-                            {% if user.is_authenticated %}
+  <header>
+    <nav
+      class="fixed z-10 w-full bg-white bg-opacity-70 backdrop-blur sm:md:backdrop-filter-none navbar peer-checked:navbar-active md:absolute md:bg-transparent">
+      <div class="m-auto md:px-20">
+        <div class="flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
+          <div class="w-full px-5 flex justify-between lg:w-max md:px-0">
+            <a href="{% url 'index'%}" aria-label="logo" class="flex items-center">
+              <div>
+                <p class="text-4xl font-bold text-red-500">sumitup.</p>
+              </div>
+            </a>
+            <label id="nice" for="hbr"
+              class="peer-checked:hamburger block relative z-20 p-6 -mr-6 cursor-pointer lg:hidden">
+              <div aria-hidden="true" class="m-auto h-0.5 w-6 rounded bg-red-500 transition duration-300"></div>
+              <div aria-hidden="true" class="m-auto mt-2 h-0.5 w-6 rounded bg-red-500 transition duration-300"></div>
+            </label>
+          </div>
+          <div id="menu"
+            class="navmenu backdrop-filter-none hidden w-full flex-wrap justify-end items-center mb-16 mx-6 space-y-20 p-6 rounded-xl shadow-lg bg-white lg:space-y-0 lg:p-0 lg:m-0 lg:flex md:flex-nowrap lg:bg-transparent lg:w-7/12 lg:shadow-none">
+            <div class="text-gray-600 lg:pr-4">
+              {% if user.is_authenticated %}
 
-                            {% else %}
-                            <ul class="space-y-6 tracking-wide font-medium text-lg lg:text-sm lg:flex lg:space-y-0">
-                                <li class="pr-3">
-                                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-bold text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 md:w-auto">About</button>
-                                    <div id="dropdownNavbar" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow">
-                                        <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
-                                          <li>
-                                            <a href="" class="block py-2 px-4 hover:bg-gray-100">Institutions</a>
-                                          </li>
-                                            <a href="" class="block py-2 px-4 hover:bg-gray-100">Patients</a>
-                                          </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                            {% endif %}
-                        </div>
-                        {% if user.is_authenticated %}
-                        <div class="w-full text-white sm:px-6 font-bold space-y-2 flex flex-colsm:flex-row lg:space-y-2 md:w-max lg:border-l">
-                          <a href="{% url 'audiocreate' %}" type="button" title="Start buying" class="w-full py-2.5 px-3 text-center rounded-xl transition bg-red-500 border-2 border-red-500 sm:w-max">
-                              <span class="block text-white font-bold lg:text-sm">
-                                  Upload Meeting
-                              </a>
-                          </button>
-                      </div>
-                      {% endif %}
-
-                        {% if user.is_authenticated %}
-                        <div class="w-full text-white sm:pl-6 font-bold space-y-2 flex flex-colsm:flex-row lg:space-y-2 md:w-max lg:border-l">
-                            <a href="{% url 'logout' %}" type="button" title="Start buying" class="w-full py-2.5 px-3 text-center text-red-500 rounded-xl transition border-2 border-red-500 sm:w-max">
-                                <span class="block font-bold lg:text-sm">
-                                    Logout
-                                </a>
-                            </button>
-                        </div>
-                        {% else %}
-                        <div class="w-full text-white sm:pl-6 font-bold space-y-2 flex flex-colsm:flex-row lg:space-y-2 md:w-max lg:border-l">
-                            <a href="{% url 'register' %}" type="button" title="Start buying" class="w-full py-2.5 px-3 text-center rounded-xl transition bg-red-500 sm:w-max">
-                                <span class="block text-white font-bold lg:text-sm">
-                                    Register
-                                </a>
-                            </button>
-                        </div>
-                        {% endif %}
-                        
-                    </div>
-                </div>
+              {% else %}
+              <ul class="space-y-6 tracking-wide font-medium text-lg lg:text-sm lg:flex lg:space-y-0">
+                <li class="pr-3">
+                  <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                    class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-bold text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 md:w-auto">About</button>
+                  <div id="dropdownNavbar"
+                    class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow">
+                    <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                      <li>
+                        <a href="" class="block py-2 px-4 hover:bg-gray-100">Institutions</a>
+                      </li>
+                      <a href="" class="block py-2 px-4 hover:bg-gray-100">Patients</a>
+                </li>
+              </ul>
             </div>
-        </nav>
-    </header>
+            </li>
+            </ul>
+            {% endif %}
+          </div>
+          {% if user.is_authenticated %}
+          <div
+            class="w-full text-white sm:px-6 font-bold space-y-2 flex flex-colsm:flex-row lg:space-y-2 md:w-max lg:border-l">
+            <a href="{% url 'audiocreate' %}" type="button" title="Start buying"
+              class="w-full py-2.5 px-3 text-center rounded-xl transition bg-red-500 border-2 border-red-500 sm:w-max">
+              <span class="block text-white font-bold lg:text-sm">
+                Upload Meeting
+            </a>
+            </button>
+          </div>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <div
+            class="w-full text-white sm:pl-6 font-bold space-y-2 flex flex-colsm:flex-row lg:space-y-2 md:w-max lg:border-l">
+            <a href="{% url 'logout' %}" type="button" title="Start buying"
+              class="w-full py-2.5 px-3 text-center text-red-500 rounded-xl transition border-2 border-red-500 sm:w-max">
+              <span class="block font-bold lg:text-sm">
+                Logout
+            </a>
+            </button>
+          </div>
+          {% else %}
+          <div
+            class="w-full text-white sm:pl-6 font-bold space-y-2 flex flex-colsm:flex-row lg:space-y-2 md:w-max lg:border-l">
+            <a href="{% url 'register' %}" type="button" title="Start buying"
+              class="w-full py-2.5 px-3 text-center rounded-xl transition bg-red-500 sm:w-max">
+              <span class="block text-white font-bold lg:text-sm">
+                Register
+            </a>
+            </button>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+</div>
+</nav>
+</header>
 </div>
 
 {% block content %}
 {% endblock %}
 
 
-                                
+
 
 
 
 <footer class="text-gray-600 body-font">
-    <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-      <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-        
-        <p class="ml-3 text-xl">sumitup</p>
-      </a>
-      <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2022 sumitup —
-        <a href="" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@sumitup</a>
-      </p>
-    </div>
-  </footer>
-                                
+  <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+    <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+
+      <p class="ml-3 text-xl">sumitup</p>
+    </a>
+    <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">CS 411 A5
+      <a href="" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank"></a>
+    </p>
+  </div>
+</footer>
+
 </html>
 
 <script>
-    const nice = document.querySelector('#nice');
-    const menu = document.querySelector('#menu');
-    
-    
-    nice.addEventListener('click', () => {
-        if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
-        } else {
-            menu.classList.add('hidden');
-        }
-    })
+  const nice = document.querySelector('#nice');
+  const menu = document.querySelector('#menu');
+
+
+  nice.addEventListener('click', () => {
+    if (menu.classList.contains('hidden')) {
+      menu.classList.remove('hidden');
+    } else {
+      menu.classList.add('hidden');
+    }
+  })
 
 </script>
-                                
-                                
