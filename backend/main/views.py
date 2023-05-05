@@ -13,6 +13,7 @@ from django.contrib.auth.views import LoginView
 from rest_framework.viewsets import ModelViewSet
 from .serializers import *
 import os
+from django.db.models import Q
 import openai
 from dotenv import load_dotenv
 from django.views.generic.edit import DeleteView
@@ -32,15 +33,19 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-@login_required
-def dashboard(request):
+def get_context(request, searchTerm):
     context = {}
 
+    context['searchTerm'] = searchTerm
     context['audiologs'] = []
     headers = {
         "authorization": f"{ASSEMBLY_KEY}",
     }
     audiologs = Audio.objects.filter(supervisor=request.user)
+    if searchTerm != None:
+        audiologs = audiologs.filter(
+            Q(transcription__icontains=searchTerm) | Q(summary__icontains=searchTerm) | Q(title__icontains=searchTerm))
+
     for audio in audiologs:
         endpoint = "https://api.assemblyai.com/v2/transcript/" + \
             str(audio.audioid)
@@ -92,6 +97,26 @@ def dashboard(request):
             context['audiologs'] += [[audio, 0]]
 
     context['audiologs'] = context['audiologs'][::-1]
+    print(context)
+    return context
+
+
+@login_required
+def dashboard(request):
+    context = get_context(request, None)
+    return render(request, 'dashboard.html', context)
+
+
+@login_required
+def filter(request):
+    if request.method == 'POST':
+        search = request.POST.get("search")
+        if search == "":
+            search = None
+        context = get_context(request, search)
+        print(context)
+    else:
+        context = get_context(request, None)
 
     return render(request, 'dashboard.html', context)
 
@@ -119,6 +144,7 @@ class RegisterPage(FormView):
     def get_success_url(self):
         return reverse_lazy('dashboard')
 
+
 class AudioCreate(LoginRequiredMixin, CreateView):
     form_class = Audioform
     template_name = 'audioform.html'
@@ -133,11 +159,10 @@ class AudioDetail(DetailView):
     model = Audio
     template_name = 'audiodetail.html'
 
+
 class AudioDelete(DeleteView):
     model = Audio
     success_url = reverse_lazy('dashboard')
-
-
 
 
 class UserViewSet(ModelViewSet):
