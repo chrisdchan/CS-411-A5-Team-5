@@ -1,0 +1,1 @@
+As a logged-in user, I want to upload a new recording of a meeting by navigating to the Meetings tab and pressing the Save Meeting button and providing a recording so that I can keep a summary of the meeting, detailed records of the meeting, and rewatch recordings if needed. If there is an error when uploading the meeting, then I can try reuploading it again.

@@ -1,3 +1,0 @@
-As a logged in user
-I want to select a meeting saved in my account and generate a bullet point list of notes to summarize key details
-in order to quickly see what happened durring each meeting without having to rewatch recordings 

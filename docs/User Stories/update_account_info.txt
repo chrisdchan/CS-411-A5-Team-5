@@ -1,0 +1,3 @@
+As a logged in user, I want to update my account information (email, linked Google account, password, etc.) in order to keep my account secure or better reflect my currently used login information. As a logged in user, I can access my Account Information page by pressing the Account Information button in your home page. I will be directed to a page where I can change account fields such as my email or password by typing a new one in a text box underneath your current account info. I can confirm the changes by pressing the Confirm button at the bottom of the page.
+
+If there's an error during this process, I can try filling out the fields again as there may be invalid characters used in them or errors such as "invalid email" appearing.

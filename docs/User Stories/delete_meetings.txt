@@ -1,0 +1,1 @@
+As a logged in user, I want to delete a saved meeting on my account in order to remove error, duplicate, or unnecessary data to avoid confusion or free up storage space. If there’s an error in deleting the meeting, then I can refresh the page and try deleting it again.
