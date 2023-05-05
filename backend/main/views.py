@@ -53,7 +53,9 @@ def dashboard(request):
             str(audio.audioid)
         response = requests.get(endpoint, headers=headers)
 
-        print(response)
+        if response.status_code < 200 or response.status_code >= 230:
+            continue
+
         if response.json()['status'] == 'completed' and not audio.transcription:
             context['audiologs'] += [[audio, 1]]
             headers = {

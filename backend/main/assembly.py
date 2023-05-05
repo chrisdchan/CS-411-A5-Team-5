@@ -21,6 +21,7 @@ def handle(file):
                              headers=headers,
                              data=read_file(file))
 
+    print(url)
     url = response.json()['upload_url']
 
     endpoint = "https://api.assemblyai.com/v2/transcript"
