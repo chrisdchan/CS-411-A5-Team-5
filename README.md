@@ -9,40 +9,49 @@ Joshua Alvarez, jhsualva@bu,edu, +19173764766
 
 Christopher Chan, chrisdc@bu.edu, +18457296611
 
+## Project Overview and Description
 
-### Project Idea One
+Our project is a web app called sumitup that allows users to upload audio, have that audio transcribed, and summarized.
 
-Idea: Polling Web Application that makes automated phone calls to a population, records, transcribes, and saves the responses in a data base for statistical analysis.
+### Demo: https://youtu.be/GIyNk0tfpC0
 
-Frameworks: Django Backend, Next.js Frontend - Data Passed using the Django Rest Framework 
- 
-Database: mySQLite
- 
-APIs: Twilio API, Assembly AI API
+### sumitup includes the following features:
 
-### Project Idea Two
+- Sign in with Google
+- Ability to upload, transcribe, and summarize audio (meetings, visits, videos, etc.)
+- Search meeting transcriptions by keyword
+- Administrative API allowing site owner to query all Users and their meeting data for processing
+- Mobile friendly
 
-Idea: An app that allows restaurants to send a bill electronically to a table and then allow the table to split the check based on the items everyone ate.
+### sumitup used the following systems and frameworks:
 
-APIs: Stripe API, Google Maps API
+- Django as a web framework
+- Tailwind CSS as a CSS framework
+- Sqlite as a database
+- all-auth Django plugin and Google Console for social logins
+- Django Rest Framework for the API framework
+- Assembly AI for meeting transcription
+- OpenAI (ChatGPT) for meeting summarization
 
-### API Documentation
+### API Json Example:
 
 ```
 {
-user: test@email.com,
-id: 2,
-data: {
-   [
-   meeting: 1,
-   transription: "Test, test, test",
-   summary: "A person saying test",
-   ],
-   [
-   meeting: 2,
-   transription: "Test2, test2, test2",
-   summary: "A person saying test2",
-   ],
- }
-}
+    {
+        "email": "chris@gmail.com",
+        "first_name": "chris",
+        "id": 11,
+        "meetings": [
+            {
+                "id": 26,
+                "title": "I want IGUADALA",
+                "audio": "/media/data/audio/i_want_iguadala_Fertk5Z.mp4",
+                "audioid": "6kyy7dlxql-4bd8-46f5-8e7d-71b1dbbdce91",
+                "transcription": "With the game on the line. One shot. Who would you rather have taking it? Iggy or curry of everyone on Golden State. Open shot. Fate of the universe on the line. Or the Martians have the death beam pointed at Earth? You better hit it. I want. Igua dolla. Igua Doll's got ice water in his veins. Igua Dollar is that type of player. High leverage moment. Fate of the universe on the line. I want an open shot, not go get it. I want Iguadala taking that shot for me. So you're not the shooter. Steph is. But I'm saying when it matters most, you're the dude I think doesn't care about that moment. Same guy like ice water in his veins. Your response? He crazy. Yeah.",
+                "summary": "The speaker is discussing which player they would rather have taking a game-winning shot: Iguadala or Curry of the Golden State Warriors. They state that Iguadala has \"ice water in his veins\" and is the type",
+                "created": "2023-05-05T22:19:36.963365Z",
+                "supervisor": 11
+            },
+        ]
+    }
 ````
